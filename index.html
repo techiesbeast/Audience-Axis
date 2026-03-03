@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audience Axis - Build Your Order</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'DM Sans', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+    
+    .category-appetizer { border-left: 4px solid #f97316; }
+    .category-pasta { border-left: 4px solid #8b5cf6; }
+    .category-dessert { border-left: 4px solid #ec4899; }
+    
+    .badge-appetizer { background: linear-gradient(135deg, #fed7aa, #fdba74); color: #9a3412; }
+    .badge-pasta { background: linear-gradient(135deg, #ddd6fe, #c4b5fd); color: #5b21b6; }
+    .badge-dessert { background: linear-gradient(135deg, #fbcfe8, #f9a8d4); color: #9d174d; }
+    
+    .item-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .item-card:hover {
+      transform: translateY(-2px);
+    }
+    
+    .addon-chip {
+      transition: all 0.2s ease;
+    }
+    .addon-chip:hover:not(.selected) {
+      transform: scale(1.02);
+    }
+    .addon-chip.selected {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .order-summary {
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .animate-slide-in {
+      animation: slideIn 0.3s ease forwards;
+    }
+    
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .pulse-subtle {
+      animation: pulse-subtle 2s ease-in-out infinite;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-stone-100 overflow-auto">
+  <div class="min-h-full w-full"><!-- Header -->
+   <header class="bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 text-white py-8 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+     <div class="inline-block mb-3"><span class="text-amber-400 text-sm tracking-[0.3em] uppercase font-medium">Est. 2024</span>
+     </div>
+     <h1 id="restaurant-name" class="font-display text-4xl md:text-5xl font-bold mb-2 tracking-wide">Audience Axis</h1>
+     <p id="tagline" class="text-stone-400 text-lg tracking-wide">Craft Your Culinary Experience</p>
+     <div class="flex justify-center gap-8 mt-6">
+      <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-orange-400"></span> <span class="text-sm text-stone-300">Appetizers</span>
+      </div>
+      <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-violet-400"></span> <span class="text-sm text-stone-300">Pastas</span>
+      </div>
+      <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-pink-400"></span> <span class="text-sm text-stone-300">Desserts</span>
+      </div>
+     </div>
+    </div>
+   </header>
+   <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8"><!-- Menu Section -->
+    <div class="flex-1 space-y-8"><!-- Appetizers -->
+     <section>
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center text-white text-lg">🍽</span>
+       <h2 class="font-display text-2xl font-semibold text-stone-800">Appetizers</h2><span class="text-stone-400 text-sm ml-auto">Starting ₹199</span>
+      </div>
+      <div class="grid gap-4"><!-- Appetizer 1 -->
+       <div class="item-card category-appetizer bg-white rounded-xl p-5 shadow-sm cursor-pointer" onclick="addToOrder('appetizer', 'Crispy Calamari', 199, this)">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800 text-lg">Crispy Calamari</h3><span class="badge-appetizer text-xs px-2 py-0.5 rounded-full font-medium">Popular</span>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Tender squid rings, seasoned flour coating, served with zesty aioli</p>
+          <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-stone-100 text-stone-600 rounded">Gluten</span> <span class="text-xs px-2 py-1 bg-stone-100 text-stone-600 rounded">Seafood</span>
+          </div>
+         </div>
+         <div class="text-right ml-4"><span class="font-display text-xl font-semibold text-orange-600">₹199</span>
+          <p class="text-xs text-stone-400 mt-1">Tap to add</p>
+         </div>
+        </div>
+       </div><!-- Appetizer 2 -->
+       <div class="item-card category-appetizer bg-white rounded-xl p-5 shadow-sm cursor-pointer" onclick="addToOrder('appetizer', 'Bruschetta Trio', 249, this)">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800 text-lg">Bruschetta Trio</h3><span class="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">Vegetarian</span>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Classic tomato basil, mushroom truffle, roasted pepper &amp; feta</p>
+          <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-stone-100 text-stone-600 rounded">Gluten</span> <span class="text-xs px-2 py-1 bg-stone-100 text-stone-600 rounded">Dairy</span>
+          </div>
+         </div>
+         <div class="text-right ml-4"><span class="font-display text-xl font-semibold text-orange-600">₹249</span>
+          <p class="text-xs text-stone-400 mt-1">Tap to add</p>
+         </div>
+        </div>
+       </div><!-- Appetizer 3 -->
+       <div class="item-card category-appetizer bg-white rounded-xl p-5 shadow-sm cursor-pointer" onclick="addToOrder('appetizer', 'Spiced Lamb Kofta', 299, this)">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800 text-lg">Spiced Lamb Kofta</h3><span class="badge-appetizer text-xs px-2 py-0.5 rounded-full font-medium">Chef's Pick</span>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Hand-rolled spiced lamb, mint yogurt, pomegranate seeds</p>
+          <div class="flex gap-2 mt-2"><span class="text-xs px-2 py-1 bg-stone-100 text-stone-600 rounded">Dairy</span> <span class="text-xs px-2 py-1 bg-red-50 text-red-600 rounded">🌶 Medium</span>
+          </div>
+         </div>
+         <div class="text-right ml-4"><span class="font-display text-xl font-semibold text-orange-600">₹299</span>
+          <p class="text-xs text-stone-400 mt-1">Tap to add</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Pastas -->
+     <section>
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-400 to-violet-500 flex items-center justify-center text-white text-lg">🍝</span>
+       <h2 class="font-display text-2xl font-semibold text-stone-800">Pastas</h2><span class="text-stone-400 text-sm ml-auto">$14 - $18</span>
+      </div>
+      <div class="grid gap-4"><!-- Pasta 1 -->
+       <div class="item-card category-pasta bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800 text-lg">Truffle Mushroom Tagliatelle</h3><span class="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">Vegetarian</span>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Wild mushroom medley, black truffle oil, aged parmesan, fresh herbs</p>
+         </div>
+         <div class="text-right ml-4"><span class="font-display text-xl font-semibold text-violet-600">$16</span>
+         </div>
+        </div>
+        <div class="border-t border-stone-100 pt-3">
+         <p class="text-xs text-stone-500 mb-2 font-medium uppercase tracking-wide">Add Protein</p>
+         <div class="flex flex-wrap gap-2"><button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Truffle Mushroom Tagliatelle', 'Grilled Chicken', 5)"> <span>Grilled Chicken</span> <span class="text-violet-600 font-medium">+$5</span> </button> <button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Truffle Mushroom Tagliatelle', 'Seared Shrimp', 7)"> <span>Seared Shrimp</span> <span class="text-violet-600 font-medium">+$7</span> </button> <button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Truffle Mushroom Tagliatelle', 'Salmon Fillet', 9)"> <span>Salmon Fillet</span> <span class="text-violet-600 font-medium">+$9</span> </button>
+         </div>
+        </div>
+       </div><!-- Pasta 2 -->
+       <div class="item-card category-pasta bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800 text-lg">Lobster Linguine</h3><span class="badge-pasta text-xs px-2 py-0.5 rounded-full font-medium">Signature</span>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">Butter-poached lobster, cherry tomatoes, white wine garlic sauce</p>
+         </div>
+         <div class="text-right ml-4"><span class="font-display text-xl font-semibold text-violet-600">$18</span>
+         </div>
+        </div>
+        <div class="border-t border-stone-100 pt-3">
+         <p class="text-xs text-stone-500 mb-2 font-medium uppercase tracking-wide">Extras</p>
+         <div class="flex flex-wrap gap-2"><button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Lobster Linguine', 'Extra Lobster', 12)"> <span>Extra Lobster</span> <span class="text-violet-600 font-medium">+$12</span> </button> <button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Lobster Linguine', 'Garlic Bread', 3)"> <span>Garlic Bread</span> <span class="text-violet-600 font-medium">+$3</span> </button>
+         </div>
+        </div>
+       </div><!-- Pasta 3 -->
+       <div class="item-card category-pasta bg-white rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-4">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800 text-lg">Spicy Arrabiata Penne</h3><span class="text-xs px-2 py-0.5 rounded-full font-medium bg-red-50 text-red-600">🌶🌶 Spicy</span>
+          </div>
+          <p class="text-stone-500 text-sm leading-relaxed">San Marzano tomatoes, calabrian chili, fresh basil, pecorino</p>
+         </div>
+         <div class="text-right ml-4"><span class="font-display text-xl font-semibold text-violet-600">$14</span>
+         </div>
+        </div>
+        <div class="border-t border-stone-100 pt-3">
+         <p class="text-xs text-stone-500 mb-2 font-medium uppercase tracking-wide">Add Protein</p>
+         <div class="flex flex-wrap gap-2"><button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Spicy Arrabiata Penne', 'Italian Sausage', 5)"> <span>Italian Sausage</span> <span class="text-violet-600 font-medium">+$5</span> </button> <button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Spicy Arrabiata Penne', 'Grilled Chicken', 5)"> <span>Grilled Chicken</span> <span class="text-violet-600 font-medium">+$5</span> </button> <button class="addon-chip px-3 py-1.5 bg-stone-50 hover:bg-violet-50 border border-stone-200 rounded-lg text-sm text-stone-700 flex items-center gap-1" onclick="toggleAddon(this, 'Spicy Arrabiata Penne', 'Meatballs (3)', 6)"> <span>Meatballs (3)</span> <span class="text-violet-600 font-medium">+$6</span> </button>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Desserts -->
+     <section>
+      <div class="flex items-center gap-3 mb-4"><span class="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-400 to-pink-500 flex items-center justify-center text-white text-lg">🍰</span>
+       <h2 class="font-display text-2xl font-semibold text-stone-800">Desserts</h2><span class="text-stone-400 text-sm ml-auto">$6 - $9</span>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4"><!-- Dessert 1 -->
+       <div class="item-card category-dessert bg-white rounded-xl p-5 shadow-sm cursor-pointer" onclick="addToOrder('dessert', 'Tiramisu', 8, this)">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800">Tiramisu</h3><span class="badge-dessert text-xs px-2 py-0.5 rounded-full font-medium">Classic</span>
+          </div>
+          <p class="text-stone-500 text-sm">Mascarpone, espresso-soaked ladyfingers, cocoa</p>
+         </div><span class="font-display text-lg font-semibold text-pink-600 ml-3">$8</span>
+        </div>
+       </div><!-- Dessert 2 -->
+       <div class="item-card category-dessert bg-white rounded-xl p-5 shadow-sm cursor-pointer" onclick="addToOrder('dessert', 'Panna Cotta', 7, this)">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800">Panna Cotta</h3><span class="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">GF</span>
+          </div>
+          <p class="text-stone-500 text-sm">Vanilla bean, seasonal berry compote</p>
+         </div><span class="font-display text-lg font-semibold text-pink-600 ml-3">$7</span>
+        </div>
+       </div><!-- Dessert 3 -->
+       <div class="item-card category-dessert bg-white rounded-xl p-5 shadow-sm cursor-pointer" onclick="addToOrder('dessert', 'Chocolate Lava Cake', 9, this)">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800">Chocolate Lava Cake</h3><span class="badge-dessert text-xs px-2 py-0.5 rounded-full font-medium">Indulgent</span>
+          </div>
+          <p class="text-stone-500 text-sm">Molten center, vanilla gelato, gold leaf</p>
+         </div><span class="font-display text-lg font-semibold text-pink-600 ml-3">$9</span>
+        </div>
+       </div><!-- Dessert 4 -->
+       <div class="item-card category-dessert bg-white rounded-xl p-5 shadow-sm cursor-pointer" onclick="addToOrder('dessert', 'Affogato', 6, this)">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+           <h3 class="font-semibold text-stone-800">Affogato</h3><span class="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">GF</span>
+          </div>
+          <p class="text-stone-500 text-sm">Vanilla gelato, hot espresso shot</p>
+         </div><span class="font-display text-lg font-semibold text-pink-600 ml-3">$6</span>
+        </div>
+       </div>
+      </div>
+     </section>
+    </div><!-- Order Summary Sidebar -->
+    <aside class="lg:w-80 lg:sticky lg:top-4 h-fit">
+     <div class="order-summary rounded-2xl p-6 text-white shadow-xl">
+      <div class="flex items-center gap-3 mb-6"><span class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xl">📋</span>
+       <div>
+        <h3 class="font-display text-xl font-semibold">Your Order</h3>
+        <p class="text-stone-400 text-sm" id="item-count">0 items</p>
+       </div>
+      </div>
+      <div id="order-items" class="space-y-3 mb-6 max-h-64 overflow-y-auto pr-2">
+       <div class="text-stone-500 text-center py-8">
+        <p class="text-4xl mb-2">🍽</p>
+        <p class="text-sm">Tap items to build your order</p>
+       </div>
+      </div>
+      <div class="border-t border-white/10 pt-4">
+       <div class="flex justify-between items-center mb-2"><span class="text-stone-400">Subtotal</span> <span id="subtotal" class="font-medium">$0.00</span>
+       </div>
+       <div class="flex justify-between items-center mb-4"><span class="text-stone-400">Tax (8%)</span> <span id="tax" class="font-medium">$0.00</span>
+       </div>
+       <div class="flex justify-between items-center text-lg"><span class="font-semibold">Total</span> <span id="total" class="font-display text-2xl font-bold text-amber-400">$0.00</span>
+       </div>
+      </div><button onclick="clearOrder()" class="w-full mt-6 py-3 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-medium transition-colors"> Clear Order </button>
+     </div><!-- Dietary Legend -->
+     <div class="bg-white rounded-xl p-4 mt-4 shadow-sm">
+      <h4 class="text-sm font-semibold text-stone-700 mb-3">Dietary Key</h4>
+      <div class="grid grid-cols-2 gap-2 text-xs"><span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-green-500"></span> Vegetarian</span> <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-green-700"></span> Gluten-Free</span> <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-400"></span> Contains Spice</span> <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-400"></span> Seafood</span>
+      </div>
+     </div>
+    </aside>
+   </div>
+  </div>
+  <script>
+    // Order state
+    let order = [];
+    let orderIdCounter = 0;
+
+    // Config state
+    const defaultConfig = {
+      restaurant_name: 'Audience Axis',
+      tagline: 'Craft Your Culinary Experience',
+      primary_color: '#1a1a2e',
+      surface_color: '#ffffff',
+      text_color: '#1c1917',
+      accent_color: '#f59e0b',
+      secondary_color: '#8b5cf6'
+    };
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          document.getElementById('restaurant-name').textContent = config.restaurant_name || defaultConfig.restaurant_name;
+          document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => window.elementSdk.setConfig({ primary_color: value })
+            },
+            {
+              get: () => config.surface_color || defaultConfig.surface_color,
+              set: (value) => window.elementSdk.setConfig({ surface_color: value })
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => window.elementSdk.setConfig({ text_color: value })
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => window.elementSdk.setConfig({ accent_color: value })
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (value) => window.elementSdk.setConfig({ secondary_color: value })
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['restaurant_name', config.restaurant_name || defaultConfig.restaurant_name],
+          ['tagline', config.tagline || defaultConfig.tagline]
+        ])
+      });
+    }
+
+    function addToOrder(category, name, price, element) {
+      const id = ++orderIdCounter;
+      order.push({ id, category, name, price, addons: [] });
+      
+      // Visual feedback
+      element.style.transform = 'scale(0.98)';
+      setTimeout(() => element.style.transform = '', 150);
+      
+      updateOrderDisplay();
+    }
+
+    function toggleAddon(button, itemName, addonName, addonPrice) {
+      button.classList.toggle('selected');
+      button.classList.toggle('bg-violet-100');
+      button.classList.toggle('border-violet-400');
+      
+      // Find or create the pasta item
+      let pastaItem = order.find(item => item.name === itemName);
+      
+      if (!pastaItem) {
+        // Add the pasta base price
+        const basePrices = {
+          'Truffle Mushroom Tagliatelle': 16,
+          'Lobster Linguine': 18,
+          'Spicy Arrabiata Penne': 14
+        };
+        pastaItem = {
+          id: ++orderIdCounter,
+          category: 'pasta',
+          name: itemName,
+          price: basePrices[itemName],
+          addons: []
+        };
+        order.push(pastaItem);
+      }
+      
+      // Toggle addon
+      const addonIndex = pastaItem.addons.findIndex(a => a.name === addonName);
+      if (addonIndex > -1) {
+        pastaItem.addons.splice(addonIndex, 1);
+      } else {
+        pastaItem.addons.push({ name: addonName, price: addonPrice });
+      }
+      
+      // Remove item if no addons and was just added for addon
+      if (pastaItem.addons.length === 0 && !button.classList.contains('selected')) {
+        const itemIndex = order.findIndex(i => i.id === pastaItem.id);
+        if (itemIndex > -1) order.splice(itemIndex, 1);
+      }
+      
+      updateOrderDisplay();
+    }
+
+    function removeItem(id) {
+      order = order.filter(item => item.id !== id);
+      updateOrderDisplay();
+    }
+
+    function clearOrder() {
+      order = [];
+      // Reset addon buttons
+      document.querySelectorAll('.addon-chip.selected').forEach(btn => {
+        btn.classList.remove('selected', 'bg-violet-100', 'border-violet-400');
+      });
+      updateOrderDisplay();
+    }
+
+    function updateOrderDisplay() {
+      const container = document.getElementById('order-items');
+      const itemCount = document.getElementById('item-count');
+      const subtotalEl = document.getElementById('subtotal');
+      const taxEl = document.getElementById('tax');
+      const totalEl = document.getElementById('total');
+      
+      if (order.length === 0) {
+        container.innerHTML = `
+          <div class="text-stone-500 text-center py-8">
+            <p class="text-4xl mb-2">🍽</p>
+            <p class="text-sm">Tap items to build your order</p>
+          </div>
+        `;
+        itemCount.textContent = '0 items';
+        subtotalEl.textContent = '$0.00';
+        taxEl.textContent = '$0.00';
+        totalEl.textContent = '$0.00';
+        return;
+      }
+
+      const categoryColors = {
+        appetizer: 'bg-orange-400',
+        pasta: 'bg-violet-400',
+        dessert: 'bg-pink-400'
+      };
+
+      container.innerHTML = order.map(item => {
+        const itemTotal = item.price + (item.addons?.reduce((sum, a) => sum + a.price, 0) || 0);
+        const isRupee = item.category === 'appetizer';
+        const currency = isRupee ? '₹' : '$';
+        
+        return `
+          <div class="animate-slide-in bg-white/10 rounded-lg p-3">
+            <div class="flex items-start justify-between">
+              <div class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full ${categoryColors[item.category]} mt-2"></span>
+                <div>
+                  <p class="font-medium text-sm">${item.name}</p>
+                  ${item.addons?.length ? `
+                    <p class="text-xs text-stone-400 mt-1">
+                      + ${item.addons.map(a => a.name).join(', ')}
+                    </p>
+                  ` : ''}
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium">${currency}${itemTotal.toFixed(2)}</span>
+                <button onclick="removeItem(${item.id})" class="text-stone-500 hover:text-red-400 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Calculate totals (convert rupees to dollars for calculation, rough estimate)
+      const subtotal = order.reduce((sum, item) => {
+        const itemTotal = item.price + (item.addons?.reduce((s, a) => s + a.price, 0) || 0);
+        // Convert rupees to approximate dollar value for display
+        return sum + (item.category === 'appetizer' ? itemTotal / 83 : itemTotal);
+      }, 0);
+      
+      const tax = subtotal * 0.08;
+      const total = subtotal + tax;
+
+      itemCount.textContent = `${order.length} item${order.length !== 1 ? 's' : ''}`;
+      subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+      taxEl.textContent = `$${tax.toFixed(2)}`;
+      totalEl.textContent = `$${total.toFixed(2)}`;
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d65ed6e419da792',t:'MTc3MjUxMjQ1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
