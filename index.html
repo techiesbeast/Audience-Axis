@@ -10,20 +10,64 @@
   <style>
     * { font-family: 'DM Sans', sans-serif; }
     .font-display { font-family: 'Playfair Display', serif; }
+
+    body {
+      background: radial-gradient(circle at 15% 15%, #1e3a8a 0%, #0f172a 45%, #020617 100%);
+      color: #e2e8f0;
+    }
+
+    header {
+      background: linear-gradient(120deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88));
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 20px 40px rgba(2, 6, 23, 0.45);
+    }
+
+    section h2,
+    #restaurant-name {
+      color: #f8fafc;
+    }
+
+    #tagline {
+      color: #93c5fd;
+    }
     
-    .category-appetizer { border-left: 4px solid #f97316; }
-    .category-pasta { border-left: 4px solid #8b5cf6; }
-    .category-dessert { border-left: 4px solid #ec4899; }
+    .category-appetizer { border-left: 4px solid #22d3ee; }
+    .category-pasta { border-left: 4px solid #38bdf8; }
+    .category-dessert { border-left: 4px solid #6366f1; }
     
-    .badge-appetizer { background: linear-gradient(135deg, #fed7aa, #fdba74); color: #9a3412; }
-    .badge-pasta { background: linear-gradient(135deg, #ddd6fe, #c4b5fd); color: #5b21b6; }
-    .badge-dessert { background: linear-gradient(135deg, #fbcfe8, #f9a8d4); color: #9d174d; }
+    .badge-appetizer { background: linear-gradient(135deg, #155e75, #06b6d4); color: #ecfeff; }
+    .badge-pasta { background: linear-gradient(135deg, #075985, #0ea5e9); color: #f0f9ff; }
+    .badge-dessert { background: linear-gradient(135deg, #312e81, #6366f1); color: #eef2ff; }
     
     .item-card {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(15, 23, 42, 0.74) !important;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 16px 28px rgba(2, 6, 23, 0.35);
+      backdrop-filter: blur(8px);
     }
     .item-card:hover {
       transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+
+    .item-card h3,
+    .item-card p,
+    .item-card span,
+    .item-card div {
+      color: inherit;
+    }
+
+    .item-card h3 {
+      color: #f8fafc;
+    }
+
+    .item-card p,
+    .item-card .text-stone-500,
+    .item-card .text-stone-400,
+    .item-card .text-stone-600,
+    section .text-stone-400 {
+      color: #94a3b8 !important;
     }
     
     .addon-chip {
@@ -38,7 +82,18 @@
     }
     
     .order-summary {
-      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+      background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .addon-chip {
+      background: rgba(30, 41, 59, 0.6) !important;
+      border-color: rgba(100, 116, 139, 0.5) !important;
+      color: #cbd5e1 !important;
+    }
+
+    .addon-chip .text-violet-600 {
+      color: #38bdf8 !important;
     }
     
     @keyframes slideIn {
